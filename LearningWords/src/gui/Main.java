@@ -1,11 +1,16 @@
 //<editor-fold defaultstate="collapsed" desc="Jibberish">
-package learningwords;
+package gui;
 
 import components.Language;
 import components.Translation;
 import connections.DatabaseMySQL;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,13 +19,13 @@ import javafx.stage.Stage;
 //</editor-fold>
 
 /**
- * In this class you can find all properties and operations for LearningWords. //CHECK
+ * In this class you can find all properties and operations for Main. //CHECK
  *
  * @organization: Moridrin
  * @author J.B.A.J. Berkvens
  * @date 2014/04/12
  */
-public class LearningWords extends Application {
+public class Main extends Application {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     private Stage STAGE;
@@ -38,6 +43,20 @@ public class LearningWords extends Application {
 
         //<editor-fold defaultstate="collapsed" desc="GUI">
         BorderPane borderPane = new BorderPane();
+        //<editor-fold defaultstate="collapsed" desc="Menu">
+        MenuBar menuBar = new MenuBar();
+        Menu mainMenu = new Menu("Test");
+        MenuItem mainMenuItem = new MenuItem("Start");
+        mainMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                startTest();
+            }
+        });
+        mainMenu.getItems().add(mainMenuItem);
+        menuBar.getMenus().add(mainMenu);
+        borderPane.setTop(menuBar);
+        //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Table">
         TableView<Translation> table = new TableView<>();
         table.setEditable(true);
@@ -46,7 +65,7 @@ public class LearningWords extends Application {
         mainColumn.setMinWidth(100);
         mainColumn.setCellValueFactory(new PropertyValueFactory<Translation, String>("mainWord"));
         //</editor-fold>
-        
+
         //<editor-fold defaultstate="collapsed" desc="LanguageColumn">
         TableColumn languageColumn = new TableColumn(language.toString());
         languageColumn.setMinWidth(100);
@@ -62,6 +81,13 @@ public class LearningWords extends Application {
         stage.show();
         this.STAGE = stage;
         //</editor-fold>
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="startTest()">
+    private void startTest() {
+        Test testGUI = new Test();
+        testGUI.start(STAGE);
     }
     //</editor-fold>
 
