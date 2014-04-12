@@ -3,6 +3,7 @@ package gui;
 
 import components.Language;
 import components.Translation;
+import connections.DatabaseFile;
 import connections.DatabaseMySQL;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -30,6 +31,7 @@ public class Main extends Application {
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     private Stage STAGE;
     Language language;
+    TableView<Translation> table;
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
@@ -39,26 +41,102 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         language = new Language("ChineseCharacter");
-        DatabaseMySQL.load(language);
 
         //<editor-fold defaultstate="collapsed" desc="GUI">
         BorderPane borderPane = new BorderPane();
         //<editor-fold defaultstate="collapsed" desc="Menu">
         MenuBar menuBar = new MenuBar();
-        Menu mainMenu = new Menu("Test");
-        MenuItem mainMenuItem = new MenuItem("Start");
-        mainMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+        //<editor-fold defaultstate="collapsed" desc="testMenu">
+        Menu testMenu = new Menu("Test");
+        //<editor-fold defaultstate="collapsed" desc="testMenuStart">
+        MenuItem testMenuStart = new MenuItem("Start");
+        testMenuStart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
                 startTest();
             }
         });
-        mainMenu.getItems().add(mainMenuItem);
-        menuBar.getMenus().add(mainMenu);
+        testMenu.getItems().add(testMenuStart);
+        //</editor-fold>
+        menuBar.getMenus().add(testMenu);
+        //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="fileMenu">
+        Menu fileMenu = new Menu("File");
+        //<editor-fold defaultstate="collapsed" desc="fileMenuLoad">
+        MenuItem fileMenuLoad = new MenuItem("Load");
+        fileMenuLoad.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                language.clear();
+                DatabaseFile.load(language);
+                table.setItems(language.getObservable());
+            }
+        });
+        fileMenu.getItems().add(fileMenuLoad);
+        //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="fileMenuSave">
+        MenuItem fileMenuSave = new MenuItem("Save");
+        fileMenuSave.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                DatabaseFile.save(language);
+            }
+        });
+        fileMenu.getItems().add(fileMenuSave);
+        //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="fileMenuMerge">
+        MenuItem fileMenuMerge = new MenuItem("Merge");
+        fileMenuMerge.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                DatabaseFile.merge(language);
+            }
+        });
+        fileMenu.getItems().add(fileMenuMerge);
+        //</editor-fold>
+        menuBar.getMenus().add(fileMenu);
+        //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="databaseMenu">
+        Menu databaseMenu = new Menu("Database");
+        //<editor-fold defaultstate="collapsed" desc="databaseMenuLoad">
+        MenuItem databaseMenuLoad = new MenuItem("Load");
+        databaseMenuLoad.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                language.clear();
+                DatabaseMySQL.load(language);
+                table.setItems(language.getObservable());
+            }
+        });
+        databaseMenu.getItems().add(databaseMenuLoad);
+        //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="databaseMenuSave">
+        MenuItem databaseMenuSave = new MenuItem("Save");
+        databaseMenuSave.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                DatabaseMySQL.save(language);
+            }
+        });
+        databaseMenu.getItems().add(databaseMenuSave);
+        //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="databaseMenuMerge">
+        MenuItem databaseMenuMerge = new MenuItem("Merge");
+        databaseMenuMerge.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                DatabaseMySQL.merge(language);
+            }
+        });
+        databaseMenu.getItems().add(databaseMenuMerge);
+        //</editor-fold>
+        menuBar.getMenus().add(databaseMenu);
+        //</editor-fold>
         borderPane.setTop(menuBar);
         //</editor-fold>
+
         //<editor-fold defaultstate="collapsed" desc="Table">
-        TableView<Translation> table = new TableView<>();
+        table = new TableView<>();
         table.setEditable(true);
         //<editor-fold defaultstate="collapsed" desc="MainColumn">
         TableColumn mainColumn = new TableColumn(DatabaseMySQL.MAIN_LANGUAGE);
@@ -71,7 +149,13 @@ public class Main extends Application {
         languageColumn.setMinWidth(100);
         languageColumn.setCellValueFactory(new PropertyValueFactory<Translation, String>("languageWord"));
         //</editor-fold>
-        table.getColumns().addAll(mainColumn, languageColumn);
+
+        //<editor-fold defaultstate="collapsed" desc="HintColumn">
+        TableColumn hintColumn = new TableColumn("Hint");
+        hintColumn.setMinWidth(100);
+        hintColumn.setCellValueFactory(new PropertyValueFactory<Translation, String>("hintWord"));
+        //</editor-fold>
+        table.getColumns().addAll(mainColumn, languageColumn, hintColumn);
         table.setItems(language.getObservable());
         borderPane.setCenter(table);
         //</editor-fold>

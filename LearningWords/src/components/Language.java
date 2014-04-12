@@ -108,19 +108,38 @@ public class Language {
         return returner;
     }
     //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="getHint(languageWord)">
+    public String getHint(String languageWord) {
+        String returner = "";
+        for (Translation translation : translations) {
+            if (translation.getLanguageWord().equals(languageWord)) {
+                returner = translation.getHintWord();
+            }
+        }
+        return returner;
+    }
+    //</editor-fold>
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Setters">
+    //<editor-fold defaultstate="collapsed" desc="clear()">
+    public void clear() {
+        translations.clear();
+    }
+    //</editor-fold>
+
     //<editor-fold defaultstate="collapsed" desc="addWord(mainWord, languageWord)">
     /**
      * This operation adds a translation to the word-lists. If the translation already exists, it won't be added.
      *
      * @param mainWord     is the word in the Main Language.
      * @param languageWord is the word in the Foreign Language.
+     * @param languageHint is a hint (like Pinyin).
      */
-    public void addWord(String mainWord, String languageWord) {
-        if (!this.translations.contains(new Translation(mainWord, languageWord))) {
-            translations.add(new Translation(mainWord, languageWord));
+    public void addWord(String mainWord, String languageWord, String languageHint) {
+        if (!this.translations.contains(new Translation(mainWord, languageWord, languageHint))) {
+            translations.add(new Translation(mainWord, languageWord, languageHint));
         }
     }
     //</editor-fold>
@@ -143,12 +162,13 @@ public class Language {
      * This operation adds a range of words to the word-lists. If the translation already exists, it won't be added.
      * Translations need to have the same index in both lists.
      *
-     * @param mainWords     is the list of Words in the Main Language.
-     * @param languageWords is the list of words to be added to the Foreign Language.
+     * @param mainWords     is the list of words in the Main Language List.
+     * @param languageWords is the list of words to be added to the Foreign Language List.
+     * @param languageHints is the list of words to be added to the Hint List.
      */
-    public void addWordRange(List<String> mainWords, List<String> languageWords) {
+    public void addWordRange(List<String> mainWords, List<String> languageWords, List<String> languageHints) {
         for (int i = 0; i < mainWords.size(); i++) {
-            addWord(translations.get(i).getMainWord(), translations.get(i).getLanguageWord());
+            addWord(mainWords.get(i), languageWords.get(i), languageHints.get(i));
         }
     }
     //</editor-fold>

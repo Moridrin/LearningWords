@@ -37,6 +37,8 @@ public class Test extends Application {
     private Label labelLanguageQuestion;
     private Label labelLanguageAnswer;
     private Label labelQuestion;
+    private Label labelHint;
+    private Button buttonHint;
     private TextField textFieldAnswer;
     private Button buttonSubmit;
     private Label labelCorrect;
@@ -71,8 +73,27 @@ public class Test extends Application {
         HBox hBoxQuestion = new HBox();
         //<editor-fold defaultstate="collapsed" desc="LabelQuestion">
         labelQuestion = new Label();
-        labelQuestion.setPrefWidth(200);
+        labelQuestion.setPrefWidth(150);
         hBoxQuestion.getChildren().add(labelQuestion);
+        //</editor-fold>
+
+        //<editor-fold defaultstate="collapsed" desc="LabelHint">
+        labelHint = new Label();
+        labelHint.setPrefWidth(200);
+        hBoxQuestion.getChildren().add(labelHint);
+        labelHint.setVisible(false);
+        //</editor-fold>
+
+        //<editor-fold defaultstate="collapsed" desc="ButtonSubmit">
+        buttonHint = new Button("Hint");
+        buttonHint.setPrefWidth(150);
+        buttonHint.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                labelHint.setVisible(true);
+            }
+        });
+        hBoxQuestion.getChildren().add(buttonHint);
         //</editor-fold>
 
         //<editor-fold defaultstate="collapsed" desc="TextFieldAnswer">
@@ -88,6 +109,7 @@ public class Test extends Application {
         buttonSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
+                labelHint.setVisible(false);
                 if (askedLanguageWords.size() >= language.getLanguageWords().size()
                     && askedMainWords.size() >= language.getMainWords().size()) {
                     STAGE.close();
@@ -111,7 +133,7 @@ public class Test extends Application {
         //</editor-fold>
         borderPane.setCenter(vBox);
         //</editor-fold>
-        Scene scene = new Scene(borderPane, 320, 100);
+        Scene scene = new Scene(borderPane, 400, 100);
         stage.setTitle("Testing " + language.toString());
         stage.setScene(scene);
         stage.show();
@@ -180,6 +202,7 @@ public class Test extends Application {
             labelLanguageQuestion.setText(language.toString());
             labelLanguageAnswer.setText("Main");
             nextQuestion = language.getRandomLanguage(askedLanguageWords);
+            labelHint.setText(language.getHint(nextQuestion));
         }
         if (nextQuestion == null) {
             STAGE.close();

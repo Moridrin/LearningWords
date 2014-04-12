@@ -23,7 +23,7 @@ public abstract class DatabaseMySQL {
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     public static final String MAIN_LANGUAGE = "Dutch";
     private static final String DATABASE_NAME = "MPLearningWords";
-    private static final String URL = "jdbc:mysql://85.113.237.162:3306/" + DATABASE_NAME;
+    private static final String URL = "jdbc:mysql://85.113.237.162:3306/" + DATABASE_NAME + "?characterSetResults=UTF-8&characterEncoding=UTF-8&useUnicode=yes";
     private static final String USER = "MPLearningWords";
     private static final String PASSWORD = "aEysZFVeGH6YBWLc";
     private static Connection conn;
@@ -47,13 +47,59 @@ public abstract class DatabaseMySQL {
             while (resultSet.next()) {
                 String mainWord = resultSet.getString(MAIN_LANGUAGE);
                 String languageWord = resultSet.getString(language.toString());
-                language.addWord(mainWord, languageWord);
+                String hintWord = resultSet.getString("Hint");
+                language.addWord(mainWord, languageWord, hintWord);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="save(language)">
+    public static void save(Language language) {
+        for (int i = 0; i < language.getMainWords().size(); i++) {
+            try {
+                PreparedStatement preparedStatement = null;
+                StringBuilder sql = new StringBuilder();
+                sql.append("INSERT INTO ");
+                sql.append(DATABASE_NAME);
+                sql.append(".");
+                sql.append(language.toString());
+                sql.append("(");
+                sql.append(MAIN_LANGUAGE);
+                sql.append(", ");
+                sql.append(language.toString());
+                sql.append(", Hint) VALUES(?, ?, ?)");
+                conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                preparedStatement = conn.prepareStatement(sql.toString());
+                preparedStatement.setString(1, language.getMainWords().get(i));
+                preparedStatement.setString(2, language.getLanguageWords().get(i));
+                preparedStatement.setString(3, language.getHint(language.getLanguageWords().get(i)));
+                preparedStatement.execute();
+            } catch (SQLException ex) {
+                Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="merge(language)">
+    public static void merge(Language language) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    //</editor-fold>
     //</editor-fold>
 }
