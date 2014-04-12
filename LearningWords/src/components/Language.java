@@ -4,6 +4,7 @@ package components;
 //</editor-fold>
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -19,6 +20,7 @@ public class Language {
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     private final String name;
     private final List<Translation> translations;
+    Random random = new Random();
     //</editor-fold>
 
     //<editor-fold desc="Operations">
@@ -35,6 +37,28 @@ public class Language {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Getters">
+    //<editor-fold defaultstate="collapsed" desc="getMainWords()">
+    public String getRandomMain(List<String> askedWords) {
+        String returner = null;
+        List<String> toBeAsked = getMainWords();
+        toBeAsked.removeAll(askedWords);
+        int randomI = random.nextInt(toBeAsked.size());
+        returner = toBeAsked.get(randomI);
+        return returner;
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="getRandomLanguage()">
+    public String getRandomLanguage(List<String> askedWords) {
+        String returner = null;
+        List<String> toBeAsked = getLanguageWords();
+        toBeAsked.removeAll(askedWords);
+        int randomI = random.nextInt(toBeAsked.size());
+        returner = toBeAsked.get(randomI);
+        return returner;
+    }
+    //</editor-fold>
+
     //<editor-fold defaultstate="collapsed" desc="getObservable()">
     public ObservableList<Translation> getObservable() {
         return FXCollections.observableArrayList(translations);
@@ -76,9 +100,9 @@ public class Language {
     //<editor-fold defaultstate="collapsed" desc="getLanguageWords(word)">
     public List<String> getLanguageWords(String word) {
         List<String> returner = new ArrayList<>();
-        for (int i = 0; i < translations.size(); i++) {
-            if (translations.get(i).getMainWord().equals(word)) {
-                returner.add(translations.get(i).getLanguageWord());
+        for (Translation translation : translations) {
+            if (translation.getMainWord().equals(word)) {
+                returner.add(translation.getLanguageWord());
             }
         }
         return returner;

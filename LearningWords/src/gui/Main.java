@@ -87,7 +87,7 @@ public class Main extends Application {
     //<editor-fold defaultstate="collapsed" desc="startTest()">
     private void startTest() {
         Test testGUI = new Test();
-        testGUI.start(STAGE);
+        testGUI.start(new Stage(), language);
     }
     //</editor-fold>
 
