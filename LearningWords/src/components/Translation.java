@@ -17,6 +17,7 @@ public class Translation {
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     private final SimpleStringProperty mainWord;
     private final SimpleStringProperty languageWord;
+    private final SimpleStringProperty hintWord;
     //</editor-fold>
 
     //<editor-fold desc="Operations">
@@ -26,10 +27,12 @@ public class Translation {
      *
      * @param mainWord
      * @param languageWord
+     * @param languageHint
      */
-    public Translation(String mainWord, String languageWord) {
+    public Translation(String mainWord, String languageWord, String languageHint) {
         this.mainWord = new SimpleStringProperty(mainWord);
         this.languageWord = new SimpleStringProperty(languageWord);
+        this.hintWord = new SimpleStringProperty(languageHint);
     }
     //</editor-fold>
 
@@ -44,6 +47,12 @@ public class Translation {
     //<editor-fold defaultstate="collapsed" desc="getLanguageWord()">
     public String getLanguageWord() {
         return languageWord.get();
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="getLanguageWord()">
+    public String getHintWord() {
+        return hintWord.get();
     }
     //</editor-fold>
     //</editor-fold>
