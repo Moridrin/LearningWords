@@ -18,41 +18,36 @@ import java.util.logging.Logger;
  * @author J.B.A.J. Berkvens
  * @date 2014/04/12
  */
-public class DatabaseMySQL {
+public abstract class DatabaseMySQL {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
-    private Connection conn;
-    private final String url;
-    private final String user;
-    private final String password;
+    public static final String MAIN_LANGUAGE = "Dutch";
+    private static final String DATABASE_NAME = "MPLearningWords";
+    private static final String URL = "jdbc:mysql://85.113.237.162:3306/" + DATABASE_NAME;
+    private static final String USER = "MPLearningWords";
+    private static final String PASSWORD = "aEysZFVeGH6YBWLc";
+    private static Connection conn;
     //</editor-fold>
 
     //<editor-fold desc="Operations">
-    //<editor-fold defaultstate="collapsed" desc="Constructor()">
-    /**
-     * This is the constructor for DatabaseMySQL.
-     */
-    public DatabaseMySQL() {
-        this.url = "jdbc:mysql://85.113.238.168:3306/MPLearningWords";
-        this.user = "MPLearningWords";
-        this.password = "aEysZFVeGH6YBWLc";
-    }
-    //</editor-fold>
-
     //<editor-fold defaultstate="collapsed" desc="load(language)">
-    public void load(Language language) {
+    /**
+     * This operation loads the translations from the database, and puts them in the Language component.
+     *
+     * @param language is the Language component where the translations will be stored.
+     */
+    public static void load(Language language) {
         try {
-            PreparedStatement preparedStatement;
-            String sql = "SELECT * FROM ?;";
-            ResultSet resultSet;
-            conn = DriverManager.getConnection(url, user, password);
+            PreparedStatement preparedStatement = null;
+            String sql = "SELECT * FROM " + DATABASE_NAME + "." + language.toString();
+            ResultSet resultSet = null;
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
             preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, language.toString());
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                resultSet.getString("");
-                resultSet.getString("");
-                resultSet.getString("");
+                String mainWord = resultSet.getString(MAIN_LANGUAGE);
+                String languageWord = resultSet.getString(language.toString());
+                language.addWord(mainWord, languageWord);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);

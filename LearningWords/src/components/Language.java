@@ -4,6 +4,8 @@ package components;
 //</editor-fold>
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * In this class you can find all properties and operations for Language. //CHECK
@@ -32,9 +34,24 @@ public class Language {
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="Class">
     //<editor-fold defaultstate="collapsed" desc="Getters">
-    //<editor-fold defaultstate="collapsed" desc="getMainWord(word)">
+    //<editor-fold defaultstate="collapsed" desc="getObservable()">
+    public ObservableList<Translation> getObservable() {
+        return FXCollections.observableArrayList(translations);
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="getMainWords()">
+    public List<String> getMainWords() {
+        List<String> returner = new ArrayList<>();
+        for (Translation wordInList : translations) {
+            returner.add(wordInList.getMainWord());
+        }
+        return returner;
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="getMainWords(word)">
     public List<String> getMainWords(String word) {
         List<String> returner = new ArrayList<>();
         for (Translation wordInList : translations) {
@@ -46,8 +63,18 @@ public class Language {
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="getLanguageWord(word)">
-    public List<String> getLanguageWord(String word) {
+    //<editor-fold defaultstate="collapsed" desc="getLanguageWords()">
+    public List<String> getLanguageWords() {
+        List<String> returner = new ArrayList<>();
+        for (Translation translation : translations) {
+            returner.add(translation.getLanguageWord());
+        }
+        return returner;
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="getLanguageWords(word)">
+    public List<String> getLanguageWords(String word) {
         List<String> returner = new ArrayList<>();
         for (int i = 0; i < translations.size(); i++) {
             if (translations.get(i).getMainWord().equals(word)) {
@@ -117,6 +144,7 @@ public class Language {
     //</editor-fold>
     //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Class">
     //<editor-fold defaultstate="collapsed" desc="toString()">
     @Override
     public String toString() {

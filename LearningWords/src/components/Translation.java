@@ -2,6 +2,9 @@
 package components;
 
 //</editor-fold>
+
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  * In this class you can find all properties and operations for Translation. //CHECK
  *
@@ -12,8 +15,8 @@ package components;
 public class Translation {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
-    private final String mainWord;
-    private final String languageWord;
+    private final SimpleStringProperty mainWord;
+    private final SimpleStringProperty languageWord;
     //</editor-fold>
 
     //<editor-fold desc="Operations">
@@ -25,8 +28,8 @@ public class Translation {
      * @param languageWord
      */
     public Translation(String mainWord, String languageWord) {
-        this.mainWord = mainWord;
-        this.languageWord = languageWord;
+        this.mainWord = new SimpleStringProperty(mainWord);
+        this.languageWord = new SimpleStringProperty(languageWord);
     }
     //</editor-fold>
 
@@ -34,13 +37,13 @@ public class Translation {
     //<editor-fold defaultstate="collapsed" desc="Getters">
     //<editor-fold defaultstate="collapsed" desc="getMainWord()">
     public String getMainWord() {
-        return mainWord;
+        return mainWord.get();
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getLanguageWord()">
     public String getLanguageWord() {
-        return languageWord;
+        return languageWord.get();
     }
     //</editor-fold>
     //</editor-fold>
@@ -48,7 +51,7 @@ public class Translation {
     //<editor-fold defaultstate="collapsed" desc="toString()">
     @Override
     public String toString() {
-        return mainWord;
+        return mainWord.get();
     }
     //</editor-fold>
 
