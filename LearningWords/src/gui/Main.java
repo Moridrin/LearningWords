@@ -34,32 +34,90 @@ public class Main extends Application {
     TableView<Translation> table;
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="Getters & Setters">
-    //</editor-fold>
     //<editor-fold desc="Operations">
     //<editor-fold defaultstate="collapsed" desc="Constructor()">
     @Override
     public void start(Stage stage) {
-        language = new Language("ChineseCharacter");
+        language = new Language("Test");
 
         //<editor-fold defaultstate="collapsed" desc="GUI">
         BorderPane borderPane = new BorderPane();
         //<editor-fold defaultstate="collapsed" desc="Menu">
         MenuBar menuBar = new MenuBar();
-        //<editor-fold defaultstate="collapsed" desc="testMenu">
-        Menu testMenu = new Menu("Test");
-        //<editor-fold defaultstate="collapsed" desc="testMenuStart">
-        MenuItem testMenuStart = new MenuItem("Start");
-        testMenuStart.setOnAction(new EventHandler<ActionEvent>() {
+        //<editor-fold defaultstate="collapsed" desc="fastTestMenu">
+        Menu fastTestMenu = new Menu("Fast Test");
+        //<editor-fold defaultstate="collapsed" desc="testMenuMainToLanguage">
+        MenuItem testMenuMainToLanguage = new MenuItem("Main > " + language.toString());
+        testMenuMainToLanguage.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-                startTest();
+                startTest("MainToLanguage", "Fast");
             }
         });
-        testMenu.getItems().add(testMenuStart);
+        fastTestMenu.getItems().add(testMenuMainToLanguage);
         //</editor-fold>
-        menuBar.getMenus().add(testMenu);
+
+        //<editor-fold defaultstate="collapsed" desc="testMenuLanguageToMain">
+        MenuItem testMenuLanguageToMain = new MenuItem(language.toString() + " > Main");
+        testMenuLanguageToMain.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                startTest("LanguageToMain", "Fast");
+            }
+        });
+        fastTestMenu.getItems().add(testMenuLanguageToMain);
         //</editor-fold>
+
+        //<editor-fold defaultstate="collapsed" desc="testMenuBoth">
+        MenuItem testMenuBoth = new MenuItem("Both");
+        testMenuBoth.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                startTest("Both", "Fast");
+            }
+        });
+        fastTestMenu.getItems().add(testMenuBoth);
+        //</editor-fold>
+        menuBar.getMenus().add(fastTestMenu);
+        //</editor-fold>
+        
+        //<editor-fold defaultstate="collapsed" desc="goodTestMenu">
+        Menu goodTestMenu = new Menu("Good Test");
+        //<editor-fold defaultstate="collapsed" desc="testMenuMainToLanguage">
+        MenuItem goodTestMenuMainToLanguage = new MenuItem("Main > " + language.toString());
+        goodTestMenuMainToLanguage.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                startTest("MainToLanguage", "Good");
+            }
+        });
+        goodTestMenu.getItems().add(goodTestMenuMainToLanguage);
+        //</editor-fold>
+
+        //<editor-fold defaultstate="collapsed" desc="testMenuLanguageToMain">
+        MenuItem goodTestMenuLanguageToMain = new MenuItem(language.toString() + " > Main");
+        goodTestMenuLanguageToMain.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                startTest("LanguageToMain", "Good");
+            }
+        });
+        goodTestMenu.getItems().add(goodTestMenuLanguageToMain);
+        //</editor-fold>
+
+        //<editor-fold defaultstate="collapsed" desc="testMenuBoth">
+        MenuItem goodTestMenuBoth = new MenuItem("Both");
+        goodTestMenuBoth.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                startTest("Both", "Good");
+            }
+        });
+        goodTestMenu.getItems().add(goodTestMenuBoth);
+        //</editor-fold>
+        menuBar.getMenus().add(goodTestMenu);
+        //</editor-fold>
+
         //<editor-fold defaultstate="collapsed" desc="fileMenu">
         Menu fileMenu = new Menu("File");
         //<editor-fold defaultstate="collapsed" desc="fileMenuLoad">
@@ -74,6 +132,7 @@ public class Main extends Application {
         });
         fileMenu.getItems().add(fileMenuLoad);
         //</editor-fold>
+
         //<editor-fold defaultstate="collapsed" desc="fileMenuSave">
         MenuItem fileMenuSave = new MenuItem("Save");
         fileMenuSave.setOnAction(new EventHandler<ActionEvent>() {
@@ -84,6 +143,7 @@ public class Main extends Application {
         });
         fileMenu.getItems().add(fileMenuSave);
         //</editor-fold>
+
         //<editor-fold defaultstate="collapsed" desc="fileMenuMerge">
         MenuItem fileMenuMerge = new MenuItem("Merge");
         fileMenuMerge.setOnAction(new EventHandler<ActionEvent>() {
@@ -96,6 +156,7 @@ public class Main extends Application {
         //</editor-fold>
         menuBar.getMenus().add(fileMenu);
         //</editor-fold>
+
         //<editor-fold defaultstate="collapsed" desc="databaseMenu">
         Menu databaseMenu = new Menu("Database");
         //<editor-fold defaultstate="collapsed" desc="databaseMenuLoad">
@@ -110,6 +171,7 @@ public class Main extends Application {
         });
         databaseMenu.getItems().add(databaseMenuLoad);
         //</editor-fold>
+
         //<editor-fold defaultstate="collapsed" desc="databaseMenuSave">
         MenuItem databaseMenuSave = new MenuItem("Save");
         databaseMenuSave.setOnAction(new EventHandler<ActionEvent>() {
@@ -120,6 +182,7 @@ public class Main extends Application {
         });
         databaseMenu.getItems().add(databaseMenuSave);
         //</editor-fold>
+
         //<editor-fold defaultstate="collapsed" desc="databaseMenuMerge">
         MenuItem databaseMenuMerge = new MenuItem("Merge");
         databaseMenuMerge.setOnAction(new EventHandler<ActionEvent>() {
@@ -169,9 +232,9 @@ public class Main extends Application {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="startTest()">
-    private void startTest() {
+    private void startTest(String testType, String testSpeed) {
         Test testGUI = new Test();
-        testGUI.start(new Stage(), language);
+        testGUI.start(new Stage(), language, testType, testSpeed);
     }
     //</editor-fold>
 
