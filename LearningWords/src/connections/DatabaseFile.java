@@ -61,9 +61,9 @@ public abstract class DatabaseFile {
 
     //<editor-fold defaultstate="collapsed" desc="stringToLanguage">
     private static void stringToLanguage(String string, Language language) {
-        String[] entries = string.split("___");
+        String[] entries = string.split("\n");
         for (String entry : entries) {
-            String[] words = entry.split("---");
+            String[] words = entry.split("\t");
             String languageWord = words[0];
             String hintWord = words[1];
             String mainWord = words[2];
@@ -74,6 +74,9 @@ public abstract class DatabaseFile {
             } else if (mainWord.contains(",")) {
                 addMultiple(language, mainWord.split(","), languageWord, hintWord);
             } else {
+                if (mainWord.charAt(0) == ' ') {
+                    mainWord = mainWord.substring(1);
+                }
                 language.addWord(mainWord, languageWord, hintWord);
             }
         }
@@ -88,6 +91,9 @@ public abstract class DatabaseFile {
             } else if (mainWord.contains(",")) {
                 addMultiple(language, mainWord.split(","), languageWord, hintWord);
             } else {
+                if (mainWord.charAt(0) == ' ') {
+                    mainWord = mainWord.substring(1);
+                }
                 language.addWord(mainWord, languageWord, hintWord);
             }
         }

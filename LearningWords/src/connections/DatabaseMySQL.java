@@ -64,6 +64,7 @@ public abstract class DatabaseMySQL {
 
     //<editor-fold defaultstate="collapsed" desc="save(language)">
     public static void save(Language language) {
+        clear(language);
         for (int i = 0; i < language.getMainWords().size(); i++) {
             try {
                 PreparedStatement preparedStatement = null;
@@ -76,12 +77,18 @@ public abstract class DatabaseMySQL {
                 sql.append(MAIN_LANGUAGE);
                 sql.append(", ");
                 sql.append(language.toString());
-                sql.append(", Hint) VALUES(?, ?, ?)");
+                sql.append(", Hint) VALUES('");
+                sql.append(language.getMainWords().get(i));
+                sql.append("', '");
+                sql.append(language.getLanguageWords().get(i));
+                sql.append("', '");
+                sql.append(language.getHint(language.getLanguageWords().get(i)));
+                sql.append("')");
                 conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 preparedStatement = conn.prepareStatement(sql.toString());
-                preparedStatement.setString(1, language.getMainWords().get(i));
-                preparedStatement.setString(2, language.getLanguageWords().get(i));
-                preparedStatement.setString(3, language.getHint(language.getLanguageWords().get(i)));
+                //preparedStatement.setString(1, language.getMainWords().get(i));
+                //preparedStatement.setString(2, language.getLanguageWords().get(i));
+                //preparedStatement.setString(3, language.getHint(language.getLanguageWords().get(i)));
                 preparedStatement.execute();
             } catch (SQLException ex) {
                 Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,6 +106,25 @@ public abstract class DatabaseMySQL {
     //<editor-fold defaultstate="collapsed" desc="merge(language)">
     public static void merge(Language language) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="clear()">
+    private static void clear(Language language) {
+        try {
+            StringBuilder sql = new StringBuilder();
+            sql.append("DELETE FROM ");
+            sql.append(DATABASE_NAME);
+            sql.append(".");
+            sql.append(language.toString());
+            PreparedStatement preparedStatement = null;
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            preparedStatement = conn.prepareStatement(sql.toString());
+            preparedStatement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     //</editor-fold>
     //</editor-fold>

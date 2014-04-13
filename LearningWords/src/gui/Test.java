@@ -52,59 +52,65 @@ public class Test extends Application {
         //<editor-fold defaultstate="collapsed" desc="GUI">
         BorderPane borderPane = new BorderPane();
         //<editor-fold defaultstate="collapsed" desc="VBox">
-        VBox vBox = new VBox();
-        //<editor-fold defaultstate="collapsed" desc="HBoxDescription">
-        HBox hBoxDescription = new HBox();
+        HBox hBox = new HBox();
+        //<editor-fold defaultstate="collapsed" desc="VBoxQuestion">
+        VBox vBoxQuestion = new VBox();
         //<editor-fold defaultstate="collapsed" desc="LabelLanguageQuestion">
         labelLanguageQuestion = new Label();
         labelLanguageQuestion.setPrefWidth(200);
-        hBoxDescription.getChildren().add(labelLanguageQuestion);
+        vBoxQuestion.getChildren().add(labelLanguageQuestion);
         //</editor-fold>
-
-        //<editor-fold defaultstate="collapsed" desc="labelLanguageAnswer">
-        labelLanguageAnswer = new Label();
-        labelLanguageAnswer.setPrefWidth(200);
-        hBoxDescription.getChildren().add(labelLanguageAnswer);
-        //</editor-fold>
-        vBox.getChildren().add(hBoxDescription);
-        //</editor-fold>
-
-        //<editor-fold defaultstate="collapsed" desc="HBoxQuestion">
-        HBox hBoxQuestion = new HBox();
+        
         //<editor-fold defaultstate="collapsed" desc="LabelQuestion">
         labelQuestion = new Label();
         labelQuestion.setPrefWidth(150);
-        hBoxQuestion.getChildren().add(labelQuestion);
+        vBoxQuestion.getChildren().add(labelQuestion);
         //</editor-fold>
-
+        hBox.getChildren().add(vBoxQuestion);
+        //</editor-fold>
+        
         //<editor-fold defaultstate="collapsed" desc="LabelHint">
         labelHint = new Label();
         labelHint.setPrefWidth(200);
-        hBoxQuestion.getChildren().add(labelHint);
+        hBox.getChildren().add(labelHint);
         labelHint.setVisible(false);
         //</editor-fold>
 
-        //<editor-fold defaultstate="collapsed" desc="ButtonSubmit">
+        //<editor-fold defaultstate="collapsed" desc="ButtonHint">
         buttonHint = new Button("Hint");
-        buttonHint.setPrefWidth(150);
+        buttonHint.setPrefWidth(70);
+        buttonHint.setMaxWidth(70);
+        buttonHint.setMinWidth(70);
         buttonHint.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
                 labelHint.setVisible(true);
             }
         });
-        hBoxQuestion.getChildren().add(buttonHint);
+        hBox.getChildren().add(buttonHint);
+        //</editor-fold>
+
+        //<editor-fold defaultstate="collapsed" desc="VBoxAnswer">
+        VBox vBoxAnswer = new VBox();
+        //<editor-fold defaultstate="collapsed" desc="labelLanguageAnswer">
+        labelLanguageAnswer = new Label();
+        labelLanguageAnswer.setPrefWidth(200);
+        vBoxAnswer.getChildren().add(labelLanguageAnswer);
         //</editor-fold>
 
         //<editor-fold defaultstate="collapsed" desc="TextFieldAnswer">
         textFieldAnswer = new TextField();
         textFieldAnswer.setPrefWidth(200);
-        hBoxQuestion.getChildren().add(textFieldAnswer);
+        vBoxAnswer.getChildren().add(textFieldAnswer);
+        //</editor-fold>
+        hBox.getChildren().add(vBoxAnswer);
         //</editor-fold>
 
         //<editor-fold defaultstate="collapsed" desc="ButtonSubmit">
         buttonSubmit = new Button("Submit");
-        buttonSubmit.setPrefWidth(150);
+        buttonSubmit.setPrefWidth(70);
+        buttonSubmit.setMaxWidth(70);
+        buttonSubmit.setMinWidth(70);
         buttonSubmit.setDefaultButton(true);
         buttonSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -122,16 +128,14 @@ public class Test extends Application {
                 }
             }
         });
-        hBoxQuestion.getChildren().add(buttonSubmit);
+        hBox.getChildren().add(buttonSubmit);
         //</editor-fold>
-        vBox.getChildren().add(hBoxQuestion);
+        borderPane.setCenter(hBox);
         //</editor-fold>
 
         //<editor-fold defaultstate="collapsed" desc="LabelCorrect">
         labelCorrect = new Label();
-        vBox.getChildren().add(labelCorrect);
-        //</editor-fold>
-        borderPane.setCenter(vBox);
+        borderPane.setBottom(labelCorrect);
         //</editor-fold>
         Scene scene = new Scene(borderPane, 400, 100);
         stage.setTitle("Testing " + language.toString());
