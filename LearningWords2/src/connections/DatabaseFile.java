@@ -66,36 +66,42 @@ public abstract class DatabaseFile {
         for (String entry : entries) {
             String[] words = entry.split("\t");
             String languageWord = words[0];
-            String hintWord = words[1];
+            String languageHint = words[1];
             String mainWord = words[2];
+            String mainHint = null;
+            if (mainWord.contains("(")) {
+                mainHint = mainWord.split("\\(")[1];
+                mainHint = mainHint.replaceAll("\\)", "");
+                mainWord = mainWord.split("\\(")[0];
+            }
             if (mainWord.contains("/")) {
-                addMultiple(language, mainWord.split("/"), languageWord, hintWord);
+                addMultiple(language, mainWord.split("/"), mainHint, languageWord, languageHint);
             } else if (mainWord.contains(";")) {
-                addMultiple(language, mainWord.split(";"), languageWord, hintWord);
+                addMultiple(language, mainWord.split(";"), mainHint, languageWord, languageHint);
             } else if (mainWord.contains(",")) {
-                addMultiple(language, mainWord.split(","), languageWord, hintWord);
+                addMultiple(language, mainWord.split(","), mainHint, languageWord, languageHint);
             } else {
                 if (mainWord.charAt(0) == ' ') {
                     mainWord = mainWord.substring(1);
                 }
-                language.addWord(mainWord, languageWord, hintWord);
+                language.addWord(mainWord, mainHint, languageWord, languageHint);
             }
         }
     }
 
-    private static void addMultiple(Language language, String[] mainWords, String languageWord, String hintWord) {
+    private static void addMultiple(Language language, String[] mainWords, String mainHint, String languageWord, String languageHint) {
         for (String mainWord : mainWords) {
             if (mainWord.contains("/")) {
-                addMultiple(language, mainWord.split("/"), languageWord, hintWord);
+                addMultiple(language, mainWord.split("/"), mainHint, languageWord, languageHint);
             } else if (mainWord.contains(";")) {
-                addMultiple(language, mainWord.split(";"), languageWord, hintWord);
+                addMultiple(language, mainWord.split(";"), mainHint, languageWord, languageHint);
             } else if (mainWord.contains(",")) {
-                addMultiple(language, mainWord.split(","), languageWord, hintWord);
+                addMultiple(language, mainWord.split(","), mainHint, languageWord, languageHint);
             } else {
                 if (mainWord.charAt(0) == ' ') {
                     mainWord = mainWord.substring(1);
                 }
-                language.addWord(mainWord, languageWord, hintWord);
+                language.addWord(mainWord, mainHint, languageWord, languageHint);
             }
         }
     }

@@ -14,8 +14,9 @@ public class Translation {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     private final String mainWord;
+    private final String mainHint;
     private final String languageWord;
-    private final String hintWord;
+    private final String languageHint;
     //</editor-fold>
 
     //<editor-fold desc="Operations">
@@ -24,13 +25,15 @@ public class Translation {
      * This is the constructor for Translation.
      *
      * @param mainWord
+     * @param mainHint
      * @param languageWord
      * @param languageHint
      */
-    public Translation(String mainWord, String languageWord, String languageHint) {
+    public Translation(String mainWord, String mainHint, String languageWord, String languageHint) {
         this.mainWord = mainWord;
+        this.mainHint = mainHint;
         this.languageWord = languageWord;
-        this.hintWord = languageHint;
+        this.languageHint = languageHint;
     }
     //</editor-fold>
 
@@ -42,15 +45,21 @@ public class Translation {
     }
     //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="getMainHint()">
+    public String getMainHint() {
+        return mainHint;
+    }
+    //</editor-fold>
+
     //<editor-fold defaultstate="collapsed" desc="getLanguageWord()">
     public String getLanguageWord() {
         return languageWord;
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="getLanguageWord()">
-    public String getHintWord() {
-        return hintWord;
+    //<editor-fold defaultstate="collapsed" desc="getLanguageHint()">
+    public String getLanguageHint() {
+        return languageHint;
     }
     //</editor-fold>
     //</editor-fold>
@@ -58,7 +67,7 @@ public class Translation {
     //<editor-fold defaultstate="collapsed" desc="toString()">
     @Override
     public String toString() {
-        return mainWord;
+        return mainWord + mainHint;
     }
     //</editor-fold>
 

@@ -45,10 +45,11 @@ public abstract class DatabaseMySQL {
             preparedStatement = conn.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                String mainWord = resultSet.getString(MAIN_LANGUAGE);
-                String languageWord = resultSet.getString(language.toString());
-                String hintWord = resultSet.getString("Hint");
-                language.addWord(mainWord, languageWord, hintWord);
+                String mainWord = resultSet.getString("Main");
+                String mainHint = resultSet.getString("MainHint");
+                String languageWord = resultSet.getString("Language");
+                String languageHint = resultSet.getString("LanguageHint");
+                language.addWord(mainWord, mainHint, languageWord, languageHint);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
@@ -64,6 +65,7 @@ public abstract class DatabaseMySQL {
 
     //<editor-fold defaultstate="collapsed" desc="save(language)">
     public static void save(Language language) {
+        createTable(language);
         clear(language);
         for (int i = 0; i < language.getMainWords().size(); i++) {
             try {
@@ -73,22 +75,17 @@ public abstract class DatabaseMySQL {
                 sql.append(DATABASE_NAME);
                 sql.append(".");
                 sql.append(language.toString());
-                sql.append("(");
-                sql.append(MAIN_LANGUAGE);
-                sql.append(", ");
-                sql.append(language.toString());
-                sql.append(", Hint) VALUES('");
+                sql.append("(Main, MainHint, Language, LanguageHint) VALUES('");
                 sql.append(language.getMainWords().get(i));
+                sql.append("', '");
+                sql.append(language.getMainHint(language.getMainWords().get(i)));
                 sql.append("', '");
                 sql.append(language.getLanguageWords().get(i));
                 sql.append("', '");
-                sql.append(language.getHint(language.getLanguageWords().get(i)));
+                sql.append(language.getLanguageHint(language.getLanguageWords().get(i)));
                 sql.append("')");
                 conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 preparedStatement = conn.prepareStatement(sql.toString());
-                //preparedStatement.setString(1, language.getMainWords().get(i));
-                //preparedStatement.setString(2, language.getLanguageWords().get(i));
-                //preparedStatement.setString(3, language.getHint(language.getLanguageWords().get(i)));
                 preparedStatement.execute();
             } catch (SQLException ex) {
                 Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
@@ -100,12 +97,6 @@ public abstract class DatabaseMySQL {
                 }
             }
         }
-    }
-    //</editor-fold>
-
-    //<editor-fold defaultstate="collapsed" desc="merge(language)">
-    public static void merge(Language language) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     //</editor-fold>
 
@@ -127,5 +118,26 @@ public abstract class DatabaseMySQL {
 
     }
     //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="createTable()">
+    private static void createTable(Language language) {
+        try {
+            PreparedStatement preparedStatement = null;
+            String sql = "CREATE TABLE IF NOT EXISTS " + language.toString() + " LIKE MPLearningWords.Template";
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     //</editor-fold>
+    //</editor-fold>
+
 }
