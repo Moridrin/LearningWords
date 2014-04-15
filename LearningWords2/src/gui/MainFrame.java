@@ -6,6 +6,7 @@ import components.enums.TestSpeed;
 import components.enums.TestType;
 import connections.DatabaseFile;
 import connections.DatabaseMySQL;
+import java.awt.Toolkit;
 import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 
@@ -276,7 +277,9 @@ public class MainFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainFrame().setVisible(true);
+                MainFrame mainFrame = new MainFrame();
+                mainFrame.setIconImage(Toolkit.getDefaultToolkit().getImage("icons/main.ico"));
+                mainFrame.setVisible(true);
             }
         });
     }
