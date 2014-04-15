@@ -13,8 +13,11 @@ import javax.swing.table.DefaultTableModel;
 //</editor-fold>
 
 /**
+ * In this class you can find all properties and operations for the Main Frame.
  *
+ * @organization: Moridrin
  * @author J.B.A.J. Berkvens
+ * @date 2014/04/14
  */
 public class MainFrame extends javax.swing.JFrame {
 
