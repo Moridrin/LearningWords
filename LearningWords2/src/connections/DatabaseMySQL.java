@@ -27,6 +27,7 @@ public abstract class DatabaseMySQL {
     private static final String USER = "MPLearningWords";
     private static final String PASSWORD = "aEysZFVeGH6YBWLc";
     private static Connection conn;
+    private static Language lastLanguage;
     //</editor-fold>
 
     //<editor-fold desc="Operations">
@@ -60,6 +61,8 @@ public abstract class DatabaseMySQL {
                 Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        lastLanguage = language;
+        LastUsed.setLastUsed(LastUsed.MySQL);
     }
     //</editor-fold>
 
@@ -97,6 +100,67 @@ public abstract class DatabaseMySQL {
                 }
             }
         }
+        lastLanguage = language;
+        LastUsed.setLastUsed(LastUsed.MySQL);
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="save(oldValue, newValue, column)">
+    public static void save(String oldValue, String newValue, int column) {
+        try {
+            PreparedStatement preparedStatement = null;
+            StringBuilder sql = new StringBuilder();
+            sql.append("UPDATE ");
+            sql.append(DATABASE_NAME);
+            sql.append(".");
+            sql.append(lastLanguage.toString());
+            switch (column) {
+                case 0: {
+                    sql.append(" SET Main='");
+                    sql.append(newValue);
+                    sql.append("' WHERE Main='");
+                    sql.append(oldValue);
+                    sql.append("'");
+                    break;
+                }
+                case 1: {
+                    sql.append(" SET MainHint='");
+                    sql.append(newValue);
+                    sql.append("' WHERE MainHint='");
+                    sql.append(oldValue);
+                    sql.append("'");
+                    break;
+                }
+                case 2: {
+                    sql.append(" SET Language='");
+                    sql.append(newValue);
+                    sql.append("' WHERE Language='");
+                    sql.append(oldValue);
+                    sql.append("'");
+                    break;
+                }
+                case 3: {
+                    sql.append(" SET LanguageHint='");
+                    sql.append(newValue);
+                    sql.append("' WHERE LanguageHint='");
+                    sql.append(oldValue);
+                    sql.append("'");
+                    break;
+                }
+            }
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            preparedStatement = conn.prepareStatement(sql.toString());
+            preparedStatement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        LastUsed.setLastUsed(LastUsed.MySQL);
     }
     //</editor-fold>
 
@@ -115,7 +179,6 @@ public abstract class DatabaseMySQL {
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
     //</editor-fold>
 

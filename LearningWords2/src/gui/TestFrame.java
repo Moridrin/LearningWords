@@ -60,6 +60,7 @@ public class TestFrame extends javax.swing.JFrame {
         jMenuView = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(400, 175));
 
         jLabelLanguageQuestion.setText("LanguageQuestion");
 
@@ -120,7 +121,7 @@ public class TestFrame extends javax.swing.JFrame {
                                 .addComponent(jButtonHint)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabelHint)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelLanguageAnswer)
                             .addGroup(layout.createSequentialGroup()

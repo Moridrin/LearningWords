@@ -44,18 +44,21 @@ public abstract class DatabaseFile {
                 Logger.getLogger(DatabaseFile.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
+            // Nothing to do (window closed)
         }
+        LastUsed.setLastUsed(LastUsed.File);
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="save(language)">
     public static void save(Language language) {
+        LastUsed.setLastUsed(LastUsed.File);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="merge(language)">
-    public static void merge(Language language) {
+    //<editor-fold defaultstate="collapsed" desc="save(oldValue, newValue, column)">
+    public static void save(String oldValue, String newValue, int column) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     //</editor-fold>
