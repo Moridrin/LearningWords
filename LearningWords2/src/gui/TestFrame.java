@@ -187,15 +187,13 @@ public class TestFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonSubmitActionPerformed
     //</editor-fold>
-    
+
     //<editor-fold defaultstate="collapsed" desc="Button Next">
     private void jButtonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextActionPerformed
         nextQuestion();
     }//GEN-LAST:event_jButtonNextActionPerformed
     //</editor-fold>
-    
-   //</editor-fold>
-    
+
     //<editor-fold defaultstate="collapsed" desc="Button Close">
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
         this.setVisible(false);
@@ -222,8 +220,12 @@ public class TestFrame extends javax.swing.JFrame {
     //<editor-fold defaultstate="collapsed" desc="nextQuestion()">
     private void nextQuestion() {
         test.nextQuestion();
+        if (test.getHint() != null) {
+            jButtonHint.setVisible(true);
+        } else {
+            jButtonHint.setVisible(false);
+        }
         jLabelHint.setVisible(false);
-        jButtonHint.setVisible(true);
         jButtonNext.setVisible(false);
         jButtonSubmit.setVisible(true);
         this.rootPane.setDefaultButton(jButtonSubmit);

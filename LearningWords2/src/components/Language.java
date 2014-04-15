@@ -66,7 +66,7 @@ public class Language {
         String returner = "";
         for (Translation translation : translations) {
             if (translation.getMainWord().equals(mainWord)) {
-                if (!translation.getMainHint().equals("null")) {
+                if (translation.getMainHint() != null) {
                     returner = translation.getMainHint();
                 }
             }

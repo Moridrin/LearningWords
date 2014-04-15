@@ -2,7 +2,6 @@
 package components;
 
 //</editor-fold>
-
 /**
  * In this class you can find all properties and operations for Translation. //CHECK
  *
@@ -47,7 +46,11 @@ public class Translation {
 
     //<editor-fold defaultstate="collapsed" desc="getMainHint()">
     public String getMainHint() {
-        return mainHint;
+        if (!mainHint.equals("null")) {
+            return mainHint;
+        } else {
+            return null;
+        }
     }
     //</editor-fold>
 
@@ -59,7 +62,11 @@ public class Translation {
 
     //<editor-fold defaultstate="collapsed" desc="getLanguageHint()">
     public String getLanguageHint() {
-        return languageHint;
+        if (!languageHint.equals("null")) {
+            return languageHint;
+        } else {
+            return null;
+        }
     }
     //</editor-fold>
     //</editor-fold>

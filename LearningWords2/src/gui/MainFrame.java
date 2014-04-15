@@ -110,9 +110,19 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuTest.add(jMenuTestBoth);
 
         jMenuTestMainToLanguage.setText("Main To Language");
+        jMenuTestMainToLanguage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuTestMainToLanguageActionPerformed(evt);
+            }
+        });
         jMenuTest.add(jMenuTestMainToLanguage);
 
         jMenuTestLanguageToMain.setText("Language To Main");
+        jMenuTestLanguageToMain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuTestLanguageToMainActionPerformed(evt);
+            }
+        });
         jMenuTest.add(jMenuTestLanguageToMain);
 
         jMenuBar1.add(jMenuTest);
@@ -169,7 +179,7 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     //</editor-fold>
 
-   //</editor-fold>
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Menu File Open">
     private void jMenuFileOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileOpenActionPerformed
         DatabaseFile.load(language, this);
@@ -207,11 +217,32 @@ public class MainFrame extends javax.swing.JFrame {
         if (jMenuTestFast.isSelected()) {
             TestFrame testFrame = new TestFrame(language, TestSpeed.Fast, TestType.Both);
             testFrame.setVisible(true);
-        }else{
+        } else {
             TestFrame testFrame = new TestFrame(language, TestSpeed.Good, TestType.Both);
             testFrame.setVisible(true);
         }
     }//GEN-LAST:event_jMenuTestBothActionPerformed
+
+    private void jMenuTestMainToLanguageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuTestMainToLanguageActionPerformed
+        // TODO add your handling code here:
+        if (jMenuTestFast.isSelected()) {
+            TestFrame testFrame = new TestFrame(language, TestSpeed.Fast, TestType.MainToLanguage);
+            testFrame.setVisible(true);
+        } else {
+            TestFrame testFrame = new TestFrame(language, TestSpeed.Good, TestType.MainToLanguage);
+            testFrame.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuTestMainToLanguageActionPerformed
+
+    private void jMenuTestLanguageToMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuTestLanguageToMainActionPerformed
+        if (jMenuTestFast.isSelected()) {
+            TestFrame testFrame = new TestFrame(language, TestSpeed.Fast, TestType.LanguageToMain);
+            testFrame.setVisible(true);
+        } else {
+            TestFrame testFrame = new TestFrame(language, TestSpeed.Good, TestType.LanguageToMain);
+            testFrame.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuTestLanguageToMainActionPerformed
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Static Main">
