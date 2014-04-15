@@ -31,6 +31,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         language = new Language("ChineseCharacter");
+        this.setTitle("MP-Learning Words");
         ChangeListener listener = new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -73,6 +74,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("main.png")));
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -321,7 +323,8 @@ public class MainFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 MainFrame mainFrame = new MainFrame();
-                mainFrame.setIconImage(Toolkit.getDefaultToolkit().getImage("icons/main.ico"));
+                java.net.URL url = ClassLoader.getSystemResource("icons/main.png");
+                mainFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(url));
                 mainFrame.setVisible(true);
             }
         });
