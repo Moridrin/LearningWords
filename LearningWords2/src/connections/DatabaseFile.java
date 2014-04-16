@@ -51,19 +51,21 @@ public abstract class DatabaseFile {
                 Logger.getLogger(DatabaseFile.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
+            // Nothing to do (window closed)
         }
+        LastUsed.setLastUsed(LastUsed.File);
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="save(language)">
-    /**
-     * This operation will open a file chooser, in which the user can specify where the file should be saved. It will
-     * write the language component in a readable format to the specified file.
-     *
-     * @param language is the component from which the translations will be written to the file.
-     * @param parent   is the component that calls this function and is needed to show the file chooser.
-     */
-    public static void save(Language language, Component parent) {
+    public static void save(Language language) {
+        LastUsed.setLastUsed(LastUsed.File);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="save(oldValue, newValue, column)">
+    public static void save(String oldValue, String newValue, int column) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     //</editor-fold>
