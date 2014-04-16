@@ -23,9 +23,9 @@ public class Test {
     private Language language;
     private List<Translation> toBeAsked;
     private final List<Translation> toBeRepeated;
-    private final Random random;
 
     //<editor-fold defaultstate="collapsed" desc="CurrentQuestion">
+    private final Random random;
     private Translation currentQuestion;
     private boolean mainToLanguage;
     //</editor-fold>
@@ -35,7 +35,7 @@ public class Test {
     //<editor-fold defaultstate="collapsed" desc="Constructor()">
     /**
      * This is the main constructor that is called by the singleton (and therefore I can't give it parameters as
-     * Language and TestSpeed.
+     * Language and TestSpeed).
      */
     private Test() {
         this.random = new Random();
@@ -59,6 +59,11 @@ public class Test {
 
     //<editor-fold defaultstate="collapsed" desc="Getters">
     //<editor-fold defaultstate="collapsed" desc="getQuestion()">
+    /**
+     * This operation returns the current question as a string.
+     *
+     * @return the current question.
+     */
     public String getQuestion() {
         if (mainToLanguage) {
             return currentQuestion.getMainWord();
@@ -69,6 +74,11 @@ public class Test {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getQuestionLanguage()">
+    /**
+     * This operation returns a string of the language in which the question is asked.
+     *
+     * @return the language of the question.
+     */
     public String getQuestionLanguage() {
         if (mainToLanguage) {
             return "Main";
@@ -79,6 +89,11 @@ public class Test {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getAnswerLanguage()">
+    /**
+     * This operation returns a string of the language in which the answer is expected.
+     *
+     * @return the language of the answer.
+     */
     public String getAnswerLanguage() {
         if (mainToLanguage) {
             return language.toString();
@@ -89,6 +104,11 @@ public class Test {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getAnswer()">
+    /**
+     * This operation returns a string of the answer that should have been given.
+     *
+     * @return the correct answer.
+     */
     public String getAnswer() {
         if (mainToLanguage) {
             return currentQuestion.getLanguageWord();
@@ -99,6 +119,12 @@ public class Test {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getHint()">
+    /**
+     * This operation returns a string of the hint of the current question (a question can have a hint, but is not
+     * necessary). A hint tells something about the question not about the answer.
+     *
+     * @return the hint.
+     */
     public String getHint() {
         if (mainToLanguage) {
             return currentQuestion.getMainHint();
@@ -109,6 +135,11 @@ public class Test {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="isFinished()">
+    /**
+     * This operation returns a boolean which specifies if the test is finished or not.
+     *
+     * @return if the test is finished.
+     */
     public boolean isFinished() {
         if (testSpeed == TestSpeed.Fast) {
             return toBeAsked.isEmpty();
@@ -155,8 +186,8 @@ public class Test {
 
     //<editor-fold defaultstate="collapsed" desc="setTestSpeed(testSpeed)">
     /**
-     * This operation sets the type of the Test. Because this is a singleton class, I can't make these variables
-     * final, so this can only be set if the current is null, and the given is not.
+     * This operation sets the type of the Test. Because this is a singleton class, I can't make these variables final,
+     * so this can only be set if the current is null, and the given is not.
      *
      * @param testType is the type in which it will be tested (foreign language to Main, the other way around or both).
      */

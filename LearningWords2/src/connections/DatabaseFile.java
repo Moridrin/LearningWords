@@ -1,7 +1,6 @@
 //<editor-fold defaultstate="collapsed" desc="Jibberish">
 package connections;
 
-//</editor-fold>
 import components.Language;
 import java.awt.Component;
 import java.io.BufferedReader;
@@ -12,9 +11,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+//</editor-fold>
 
 /**
- * In this class you can find all properties and operations for DatabaseFile.
+ * In this class you can find all operations to read and write to a Database File.
  *
  * @organization: Moridrin
  * @author J.B.A.J. Berkvens
@@ -24,6 +24,13 @@ public abstract class DatabaseFile {
 
     //<editor-fold desc="Operations">
     //<editor-fold defaultstate="collapsed" desc="load(language)">
+    /**
+     * This operation will open a file chooser, in which the user can select a file to be laded. This file will be read
+     * and stored in the given language component.
+     *
+     * @param language is the component where the translations as read in the file will be stored.
+     * @param parent   is the component that calls this function and is needed to show the file chooser.
+     */
     public static void load(Language language, Component parent) {
         JFileChooser fileChooser = new JFileChooser();
         int returnVal = fileChooser.showOpenDialog(parent);
@@ -49,18 +56,26 @@ public abstract class DatabaseFile {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="save(language)">
-    public static void save(Language language) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    //</editor-fold>
-
-    //<editor-fold defaultstate="collapsed" desc="merge(language)">
-    public static void merge(Language language) {
+    /**
+     * This operation will open a file chooser, in which the user can specify where the file should be saved. It will
+     * write the language component in a readable format to the specified file.
+     *
+     * @param language is the component from which the translations will be written to the file.
+     * @param parent   is the component that calls this function and is needed to show the file chooser.
+     */
+    public static void save(Language language, Component parent) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="stringToLanguage">
+    /**
+     * This operation splits and converts the string as read in the file to translations and saves those in the language
+     * component.
+     *
+     * @param string   is the string as read in the file.
+     * @param language is the component in which the translations will be stored.
+     */
     private static void stringToLanguage(String string, Language language) {
         String[] entries = string.split("\n");
         for (String entry : entries) {
@@ -89,6 +104,16 @@ public abstract class DatabaseFile {
         }
     }
 
+    /**
+     * This operation converts a string with multiple translations to translations that will be stored in the language
+     * component.
+     *
+     * @param language     is the component in which the translations will be stored.
+     * @param mainWords    is an array of words with the same meaning.
+     * @param mainHint     is the hint that goes with the main words.
+     * @param languageWord is the translation of the main words.
+     * @param languageHint is the hint that goes with the language word.
+     */
     private static void addMultiple(Language language, String[] mainWords, String mainHint, String languageWord, String languageHint) {
         for (String mainWord : mainWords) {
             if (mainWord.contains("/")) {

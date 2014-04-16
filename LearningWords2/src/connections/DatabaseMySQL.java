@@ -1,7 +1,6 @@
 //<editor-fold defaultstate="collapsed" desc="Jibberish">
 package connections;
 
-//</editor-fold>
 import components.Language;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,9 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//</editor-fold>
 
 /**
- * In this class you can find all properties and operations for DatabaseMySQL. //CHECK
+ * In this class you can find all properties and operations for the MySQL Database.
  *
  * @organization: Moridrin
  * @author J.B.A.J. Berkvens
@@ -64,6 +64,11 @@ public abstract class DatabaseMySQL {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="save(language)">
+    /**
+     * This operation clears the database and stores the language component.
+     *
+     * @param language the component that will be stored in the database.
+     */
     public static void save(Language language) {
         createTable(language);
         clear(language);
@@ -101,6 +106,11 @@ public abstract class DatabaseMySQL {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="clear()">
+    /**
+     * This operation clears the database (or at least the table that fits the current language).
+     *
+     * @param language contains the name of the table that needs to be cleared.
+     */
     private static void clear(Language language) {
         try {
             StringBuilder sql = new StringBuilder();
@@ -120,6 +130,11 @@ public abstract class DatabaseMySQL {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="createTable()">
+    /**
+     * This operation creates a new table for this language (if necessary).
+     *
+     * @param language contains the name of the table.
+     */
     private static void createTable(Language language) {
         try {
             PreparedStatement preparedStatement = null;

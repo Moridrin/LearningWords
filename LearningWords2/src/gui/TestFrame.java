@@ -19,11 +19,11 @@ public class TestFrame extends javax.swing.JFrame {
 
     //<editor-fold defaultstate="collapsed" desc="Constructor(language, testSpeed, testType)">
     /**
-     * Creates new form TestFrame
+     * Creates new form TestFrame and starts the first question.
      *
-     * @param language
-     * @param testSpeed
-     * @param testType
+     * @param language  is the language that will be tested.
+     * @param testSpeed is the Speed in which will be tested.
+     * @param testType  is the direction in which will be tested.
      */
     public TestFrame(Language language, TestSpeed testSpeed, TestType testType) {
         initComponents();
@@ -161,6 +161,11 @@ public class TestFrame extends javax.swing.JFrame {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Button Hint">
+    /**
+     * This event is called when the Hint Button is called. It gives the hint that goes with the Question.
+     *
+     * @param evt is the event with which this event is called.
+     */
     private void jButtonHintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHintActionPerformed
         jLabelHint.setText(test.getHint());
         jLabelHint.setVisible(true);
@@ -169,6 +174,12 @@ public class TestFrame extends javax.swing.JFrame {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Button Submit">
+    /**
+     * This event is called when the Submit Button is called. It gives you feedback about your answer, and provides you
+     * with the correct answer.
+     *
+     * @param evt is the event with which this event is called.
+     */
     private void jButtonSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubmitActionPerformed
         if (test.submit(jTextFieldAnswer.getText())) {
             jLabelFeedback.setText("Correct! (" + test.getAnswer() + ")");
@@ -189,12 +200,22 @@ public class TestFrame extends javax.swing.JFrame {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Button Next">
+    /**
+     * This event is called when the Next Button is called. It gives the next question.
+     *
+     * @param evt is the event with which this event is called.
+     */
     private void jButtonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNextActionPerformed
         nextQuestion();
     }//GEN-LAST:event_jButtonNextActionPerformed
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Button Close">
+    /**
+     * This event is called when the Close Button is called. This closes the test but not the application.
+     *
+     * @param evt is the event with which this event is called.
+     */
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jButtonCloseActionPerformed
@@ -218,6 +239,9 @@ public class TestFrame extends javax.swing.JFrame {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="nextQuestion()">
+    /**
+     * This selects the next question and sets the labels.
+     */
     private void nextQuestion() {
         test.nextQuestion();
         if (test.getHint() != null) {

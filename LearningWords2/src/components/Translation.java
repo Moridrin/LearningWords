@@ -23,10 +23,10 @@ public class Translation {
     /**
      * This is the constructor for Translation.
      *
-     * @param mainWord
-     * @param mainHint
-     * @param languageWord
-     * @param languageHint
+     * @param mainWord     is the word in the main language.
+     * @param mainHint     is a hint that helps the tester understand the main word.
+     * @param languageWord is the translation of mainWord.
+     * @param languageHint is a hint that helps the tester understand the language word.
      */
     public Translation(String mainWord, String mainHint, String languageWord, String languageHint) {
         this.mainWord = mainWord;
@@ -39,12 +39,22 @@ public class Translation {
     //<editor-fold defaultstate="collapsed" desc="Class">
     //<editor-fold defaultstate="collapsed" desc="Getters">
     //<editor-fold defaultstate="collapsed" desc="getMainWord()">
+    /**
+     * This operation returns a string of the main word.
+     *
+     * @return the main word.
+     */
     public String getMainWord() {
         return mainWord;
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getMainHint()">
+    /**
+     * This operation returns a string of the main hint.
+     *
+     * @return the main hint.
+     */
     public String getMainHint() {
         if (!mainHint.equals("null")) {
             return mainHint;
@@ -55,12 +65,22 @@ public class Translation {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getLanguageWord()">
+    /**
+     * This operation returns a string of the language word.
+     *
+     * @return the language word.
+     */
     public String getLanguageWord() {
         return languageWord;
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getLanguageHint()">
+    /**
+     * This operation returns a string of the language hint.
+     *
+     * @return the language hint.
+     */
     public String getLanguageHint() {
         if (!languageHint.equals("null")) {
             return languageHint;
@@ -71,6 +91,7 @@ public class Translation {
     //</editor-fold>
     //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Class">
     //<editor-fold defaultstate="collapsed" desc="toString()">
     @Override
     public String toString() {

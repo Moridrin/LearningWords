@@ -22,7 +22,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     /**
-     * Creates new form MainFrame
+     * Creates new form MainFrame and sets the language.
      */
     public MainFrame() {
         initComponents();
@@ -182,6 +182,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Menu File Open">
+    /**
+     * This event is called when the File>Open menu item is called. It loads a file into the language component.
+     *
+     * @param evt is the event with which this event is called.
+     */
     private void jMenuFileOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileOpenActionPerformed
         DatabaseFile.load(language, this);
         updateTable();
@@ -189,6 +194,11 @@ public class MainFrame extends javax.swing.JFrame {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Menu Database Load">
+    /**
+     * This event is called when the Database>Load menu item is called. It loads the database that fits the language.
+     *
+     * @param evt is the event with which this event is called.
+     */
     private void jMenuDatabaseLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDatabaseLoadActionPerformed
         DatabaseMySQL.load(language);
         updateTable();
@@ -196,12 +206,22 @@ public class MainFrame extends javax.swing.JFrame {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Menu Database Save">
+    /**
+     * This event is called when the Database>Save menu item is called. It saves the current language in the database.
+     *
+     * @param evt is the event with which this event is called.
+     */
     private void jMenuDatabaseSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDatabaseSaveActionPerformed
         DatabaseMySQL.save(language);
     }//GEN-LAST:event_jMenuDatabaseSaveActionPerformed
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Menu Test Fast">
+    /**
+     * This event is called when the Test>Fast menu item is called. It changes the Test Type to "Fast".
+     *
+     * @param evt is the event with which this event is called.
+     */
     private void jMenuTestFastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuTestFastActionPerformed
         jMenuTestFast.setSelected(true);
         jMenuTestGood.setSelected(false);
@@ -209,11 +229,24 @@ public class MainFrame extends javax.swing.JFrame {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Menu Test Good">
+    /**
+     * This event is called when the Test>Good menu item is called. It changes the Test Type to "Good"
+     *
+     * @param evt is the event with which this event is called.
+     */
     private void jMenuTestGoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuTestGoodActionPerformed
         jMenuTestGood.setSelected(true);
         jMenuTestFast.setSelected(false);
     }//GEN-LAST:event_jMenuTestGoodActionPerformed
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Menu Test Both">
+    /**
+     * This event is called when the File>Open menu item is called. It starts the test with the given speed and in both
+     * directions.
+     *
+     * @param evt is the event with which this event is called.
+     */
     private void jMenuTestBothActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuTestBothActionPerformed
         if (jMenuTestFast.isSelected()) {
             TestFrame testFrame = new TestFrame(language, TestSpeed.Fast, TestType.Both);
@@ -223,7 +256,15 @@ public class MainFrame extends javax.swing.JFrame {
             testFrame.setVisible(true);
         }
     }//GEN-LAST:event_jMenuTestBothActionPerformed
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Menu Test Main to Language">
+    /**
+     * This event is called when the File>Open menu item is called. It starts the test with the given speed and from the
+     * Main Language to the translation.
+     *
+     * @param evt is the event with which this event is called.
+     */
     private void jMenuTestMainToLanguageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuTestMainToLanguageActionPerformed
         // TODO add your handling code here:
         if (jMenuTestFast.isSelected()) {
@@ -234,7 +275,15 @@ public class MainFrame extends javax.swing.JFrame {
             testFrame.setVisible(true);
         }
     }//GEN-LAST:event_jMenuTestMainToLanguageActionPerformed
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Menu Test Language to Main">
+    /**
+     * This event is called when the File>Open menu item is called. It starts the test with the given speed and from the
+     * Translation to the Main Language.
+     *
+     * @param evt is the event with which this event is called.
+     */
     private void jMenuTestLanguageToMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuTestLanguageToMainActionPerformed
         if (jMenuTestFast.isSelected()) {
             TestFrame testFrame = new TestFrame(language, TestSpeed.Fast, TestType.LanguageToMain);
@@ -308,6 +357,9 @@ public class MainFrame extends javax.swing.JFrame {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Update Table">
+    /**
+     * This operation updates the Table.
+     */
     private void updateTable() {
         DefaultTableModel tableModel = (DefaultTableModel) jTable.getModel();
         for (int i = 0; i < language.getMainWords().size(); i++) {
