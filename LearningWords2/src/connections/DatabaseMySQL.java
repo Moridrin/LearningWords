@@ -111,6 +111,13 @@ public abstract class DatabaseMySQL {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="save(oldValue, newValue, column)">
+    /**
+     * This operation saves a changed value.
+     *
+     * @param oldValue is the old value that needs to be changed.
+     * @param newValue is the new value that needs to be saved.
+     * @param column   is the column in which this variable needs to be changed.
+     */
     public static void save(String oldValue, String newValue, int column) {
         try {
             PreparedStatement preparedStatement = null;
