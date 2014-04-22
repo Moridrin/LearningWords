@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * In this class you can find all properties and operations for Language. //CHECK
- * Commit Test
+ * 
  * @organization: Moridrin
  * @author J.B.A.J. Berkvens
  * @date 2014/04/12
