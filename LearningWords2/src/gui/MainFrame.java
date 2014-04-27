@@ -70,6 +70,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuTestLanguageToMain = new javax.swing.JMenuItem();
         jMenuFile = new javax.swing.JMenu();
         jMenuFileOpen = new javax.swing.JMenuItem();
+        jMenuFileSave = new javax.swing.JMenuItem();
         jMenuDatabase = new javax.swing.JMenu();
         jMenuDatabaseLoad = new javax.swing.JMenuItem();
         jMenuDatabaseSave = new javax.swing.JMenuItem();
@@ -165,6 +166,10 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenuFile.add(jMenuFileOpen);
+
+        jMenuFileSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuFileSave.setText("Save");
+        jMenuFile.add(jMenuFileSave);
 
         jMenuBar1.add(jMenuFile);
 
@@ -394,6 +399,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuDatabaseSave;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuFileOpen;
+    private javax.swing.JMenuItem jMenuFileSave;
     private javax.swing.JMenu jMenuTest;
     private javax.swing.JMenuItem jMenuTestBoth;
     private javax.swing.JRadioButtonMenuItem jMenuTestFast;

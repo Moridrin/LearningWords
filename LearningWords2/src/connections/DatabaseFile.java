@@ -1,6 +1,7 @@
 //<editor-fold defaultstate="collapsed" desc="Jibberish">
 package connections;
 
+import connections.enums.LastUsed;
 import components.Language;
 import java.awt.Component;
 import java.io.BufferedReader;
