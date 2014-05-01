@@ -63,6 +63,17 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonAddRows = new javax.swing.JButton();
         jSpinnerRows = new javax.swing.JSpinner();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuFile = new javax.swing.JMenu();
+        jMenuFileNew = new javax.swing.JMenuItem();
+        jMenuFileOpen = new javax.swing.JMenu();
+        jMenuFileLoadDatabase = new javax.swing.JMenuItem();
+        jMenuFileLoadFile = new javax.swing.JMenuItem();
+        jMenuFileSave = new javax.swing.JMenu();
+        jMenuDatabaseSave = new javax.swing.JMenuItem();
+        jMenuFileSaveFile = new javax.swing.JMenuItem();
+        jMenuFileImport = new javax.swing.JMenu();
+        jMenuFileImportMySQL = new javax.swing.JMenuItem();
+        jMenuFileImportFile = new javax.swing.JMenuItem();
         jMenuTest = new javax.swing.JMenu();
         jMenuTestFast = new javax.swing.JRadioButtonMenuItem();
         jMenuTestGood = new javax.swing.JRadioButtonMenuItem();
@@ -70,12 +81,6 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuTestBoth = new javax.swing.JMenuItem();
         jMenuTestMainToLanguage = new javax.swing.JMenuItem();
         jMenuTestLanguageToMain = new javax.swing.JMenuItem();
-        jMenuFile = new javax.swing.JMenu();
-        jMenuFileOpen = new javax.swing.JMenuItem();
-        jMenuFileSave = new javax.swing.JMenuItem();
-        jMenuDatabase = new javax.swing.JMenu();
-        jMenuDatabaseLoad = new javax.swing.JMenuItem();
-        jMenuDatabaseSave = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -108,6 +113,64 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jSpinnerRows.setValue(1);
+
+        jMenuFile.setText("File");
+
+        jMenuFileNew.setText("New");
+        jMenuFile.add(jMenuFileNew);
+
+        jMenuFileOpen.setText("Open");
+
+        jMenuFileLoadDatabase.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuFileLoadDatabase.setText("MySQL");
+        jMenuFileLoadDatabase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuFileLoadDatabaseActionPerformed(evt);
+            }
+        });
+        jMenuFileOpen.add(jMenuFileLoadDatabase);
+
+        jMenuFileLoadFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuFileLoadFile.setText("File");
+        jMenuFileLoadFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuFileLoadFileActionPerformed(evt);
+            }
+        });
+        jMenuFileOpen.add(jMenuFileLoadFile);
+
+        jMenuFile.add(jMenuFileOpen);
+
+        jMenuFileSave.setText("Save");
+
+        jMenuDatabaseSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuDatabaseSave.setText("MySQL");
+        jMenuDatabaseSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuDatabaseSaveActionPerformed(evt);
+            }
+        });
+        jMenuFileSave.add(jMenuDatabaseSave);
+
+        jMenuFileSaveFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuFileSaveFile.setText("File");
+        jMenuFileSave.add(jMenuFileSaveFile);
+
+        jMenuFile.add(jMenuFileSave);
+
+        jMenuFileImport.setText("Import");
+
+        jMenuFileImportMySQL.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuFileImportMySQL.setText("MySQL");
+        jMenuFileImport.add(jMenuFileImportMySQL);
+
+        jMenuFileImportFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuFileImportFile.setText("File");
+        jMenuFileImport.add(jMenuFileImportFile);
+
+        jMenuFile.add(jMenuFileImport);
+
+        jMenuBar1.add(jMenuFile);
 
         jMenuTest.setText("Test");
 
@@ -158,45 +221,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuTest);
 
-        jMenuFile.setText("File");
-
-        jMenuFileOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuFileOpen.setText("Open");
-        jMenuFileOpen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuFileOpenActionPerformed(evt);
-            }
-        });
-        jMenuFile.add(jMenuFileOpen);
-
-        jMenuFileSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuFileSave.setText("Save");
-        jMenuFile.add(jMenuFileSave);
-
-        jMenuBar1.add(jMenuFile);
-
-        jMenuDatabase.setText("Database");
-
-        jMenuDatabaseLoad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuDatabaseLoad.setText("Load");
-        jMenuDatabaseLoad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuDatabaseLoadActionPerformed(evt);
-            }
-        });
-        jMenuDatabase.add(jMenuDatabaseLoad);
-
-        jMenuDatabaseSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuDatabaseSave.setText("Save");
-        jMenuDatabaseSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuDatabaseSaveActionPerformed(evt);
-            }
-        });
-        jMenuDatabase.add(jMenuDatabaseSave);
-
-        jMenuBar1.add(jMenuDatabase);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -234,10 +258,10 @@ public class MainFrame extends javax.swing.JFrame {
      *
      * @param evt is the event with which this event is called.
      */
-    private void jMenuFileOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileOpenActionPerformed
+    private void jMenuFileLoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileLoadFileActionPerformed
         DatabaseFile.load(language, this);
         updateTable();
-    }//GEN-LAST:event_jMenuFileOpenActionPerformed
+    }//GEN-LAST:event_jMenuFileLoadFileActionPerformed
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Menu Database Load">
@@ -247,10 +271,10 @@ public class MainFrame extends javax.swing.JFrame {
      *
      * @param evt is the event with which this event is called.
      */
-    private void jMenuDatabaseLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDatabaseLoadActionPerformed
+    private void jMenuFileLoadDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileLoadDatabaseActionPerformed
         DatabaseMySQL.load(language);
         updateTable();
-    }//GEN-LAST:event_jMenuDatabaseLoadActionPerformed
+    }//GEN-LAST:event_jMenuFileLoadDatabaseActionPerformed
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Menu Database Save">
@@ -403,12 +427,17 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu jMenuDatabase;
-    private javax.swing.JMenuItem jMenuDatabaseLoad;
     private javax.swing.JMenuItem jMenuDatabaseSave;
     private javax.swing.JMenu jMenuFile;
-    private javax.swing.JMenuItem jMenuFileOpen;
-    private javax.swing.JMenuItem jMenuFileSave;
+    private javax.swing.JMenu jMenuFileImport;
+    private javax.swing.JMenuItem jMenuFileImportFile;
+    private javax.swing.JMenuItem jMenuFileImportMySQL;
+    private javax.swing.JMenuItem jMenuFileLoadDatabase;
+    private javax.swing.JMenuItem jMenuFileLoadFile;
+    private javax.swing.JMenuItem jMenuFileNew;
+    private javax.swing.JMenu jMenuFileOpen;
+    private javax.swing.JMenu jMenuFileSave;
+    private javax.swing.JMenuItem jMenuFileSaveFile;
     private javax.swing.JMenu jMenuTest;
     private javax.swing.JMenuItem jMenuTestBoth;
     private javax.swing.JRadioButtonMenuItem jMenuTestFast;
