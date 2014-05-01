@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package components;
 
 import connections.DatabaseMySQL;
-import java.sql.Types;
+import connections.enums.LastUsed;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +18,12 @@ import javax.swing.table.TableModel;
  */
 public class TableListener implements TableModelListener {
 
-    private static TableModel oldModel;
+    private static DefaultTableModel oldModel;
+    private static Language language;
+
+    public static void setLanguage(Language language) {
+        TableListener.language = language;
+    }
 
     private TableListener() {
     }
@@ -34,9 +39,18 @@ public class TableListener implements TableModelListener {
         TableModel newModel = (TableModel) e.getSource();
         if (column >= 0) {
             String newValue = newModel.getValueAt(row, column).toString();
-            String oldValue = oldModel.getValueAt(row, column).toString();
-            DatabaseMySQL.save(oldValue, newValue, column);
+            String oldValue = (String) oldModel.getValueAt(row, column);
+            language.change(oldValue, newValue, row, column);
+            if (oldValue != null && LastUsed.getLastUsed() == LastUsed.MySQL) {
+                DatabaseMySQL.save(oldValue, newValue, column);
+            }
             saveTableModel(newModel);
+        }
+    }
+
+    public static void addRows(int amount) {
+        for (int i = 0; i < amount; i++) {
+            oldModel.addRow(new Object[oldModel.getColumnCount()]);
         }
     }
 
@@ -47,6 +61,7 @@ public class TableListener implements TableModelListener {
                 oldModel.setValueAt(tableModel.getValueAt(i, j), i, j);
             }
         }
+
     }
 
     private static class TableListenerHolder {

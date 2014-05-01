@@ -3,7 +3,8 @@ package components;
 
 //</editor-fold>
 /**
- * In this class you can find all properties and operations for Translation. //CHECK
+ * In this class you can find all properties and operations for Translation.
+ * //CHECK
  *
  * @organization: Moridrin
  * @author J.B.A.J. Berkvens
@@ -12,10 +13,10 @@ package components;
 public class Translation {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
-    private final String mainWord;
-    private final String mainHint;
-    private final String languageWord;
-    private final String languageHint;
+    private String mainWord;
+    private String mainHint;
+    private String languageWord;
+    private String languageHint;
     //</editor-fold>
 
     //<editor-fold desc="Operations">
@@ -23,10 +24,11 @@ public class Translation {
     /**
      * This is the constructor for Translation.
      *
-     * @param mainWord     is the word in the main language.
-     * @param mainHint     is a hint that helps the tester understand the main word.
+     * @param mainWord is the word in the main language.
+     * @param mainHint is a hint that helps the tester understand the main word.
      * @param languageWord is the translation of mainWord.
-     * @param languageHint is a hint that helps the tester understand the language word.
+     * @param languageHint is a hint that helps the tester understand the
+     * language word.
      */
     public Translation(String mainWord, String mainHint, String languageWord, String languageHint) {
         this.mainWord = mainWord;
@@ -87,6 +89,52 @@ public class Translation {
         } else {
             return null;
         }
+    }
+    //</editor-fold>
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Setters">
+    //<editor-fold defaultstate="collapsed" desc="setMainWord(mainWord)">
+    /**
+     * This operation returns a string of the main word.
+     *
+     * @param mainWord
+     */
+    public void setMainWord(String mainWord) {
+        this.mainWord = mainWord;
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="setMainHint(mainHint)">
+    /**
+     * This operation returns a string of the main hint.
+     *
+     * @param mainHint
+     */
+    public void setMainHint(String mainHint) {
+        this.mainHint = mainHint;
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="setLanguageWord(languageWord)">
+    /**
+     * This operation returns a string of the language word.
+     *
+     * @param languageWord
+     */
+    public void setLanguageWord(String languageWord) {
+        this.languageWord = languageWord;
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="setLanguageHint(languageHint)">
+    /**
+     * This operation returns a string of the language hint.
+     *
+     * @param languageHint
+     */
+    public void setLanguageHint(String languageHint) {
+        this.languageHint = languageHint;
     }
     //</editor-fold>
     //</editor-fold>

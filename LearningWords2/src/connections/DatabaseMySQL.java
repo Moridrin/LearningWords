@@ -1,19 +1,21 @@
 //<editor-fold defaultstate="collapsed" desc="Jibberish">
 package connections;
 
-import connections.enums.LastUsed;
 import components.Language;
+import connections.enums.LastUsed;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 //</editor-fold>
 
 /**
- * In this class you can find all properties and operations for the MySQL Database.
+ * In this class you can find all properties and operations for the MySQL
+ * Database.
  *
  * @organization: Moridrin
  * @author J.B.A.J. Berkvens
@@ -34,9 +36,11 @@ public abstract class DatabaseMySQL {
     //<editor-fold desc="Operations">
     //<editor-fold defaultstate="collapsed" desc="load(language)">
     /**
-     * This operation loads the translations from the database, and puts them in the Language component.
+     * This operation loads the translations from the database, and puts them in
+     * the Language component.
      *
-     * @param language is the Language component where the translations will be stored.
+     * @param language is the Language component where the translations will be
+     * stored.
      */
     public static void load(Language language) {
         try {
@@ -64,6 +68,62 @@ public abstract class DatabaseMySQL {
         }
         lastLanguage = language;
         LastUsed.setLastUsed(LastUsed.MySQL);
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="load(language)">
+    /**
+     * This operation loads the translations from the database, and puts them in
+     * the Language component.
+     *
+     * @param databases
+     */
+    public static void loadDatabases(List<String> databases) {
+        try {
+            PreparedStatement preparedStatement = null;
+            String sql = "SHOW TABLES FROM " + DATABASE_NAME;
+            ResultSet resultSet = null;
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            preparedStatement = conn.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String table = resultSet.getString("Tables_in_" + DATABASE_NAME);
+                if (!table.equals("Test") && !table.equals("Template")) {
+                    databases.add(table);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        LastUsed.setLastUsed(LastUsed.MySQL);
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="create(name)">
+    public static void create(String name) {
+        try {
+            StringBuilder sql = new StringBuilder();
+            sql.append("CREATE TABLE ");
+            sql.append(DATABASE_NAME);
+            sql.append(".");
+            sql.append(name);
+            sql.append(" LIKE ");
+            sql.append(DATABASE_NAME);
+            sql.append(".");
+            sql.append("Template");
+            PreparedStatement preparedStatement = null;
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            preparedStatement = conn.prepareStatement(sql.toString());
+            preparedStatement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     //</editor-fold>
 
@@ -117,7 +177,7 @@ public abstract class DatabaseMySQL {
      *
      * @param oldValue is the old value that needs to be changed.
      * @param newValue is the new value that needs to be saved.
-     * @param column   is the column in which this variable needs to be changed.
+     * @param column is the column in which this variable needs to be changed.
      */
     public static void save(String oldValue, String newValue, int column) {
         try {
@@ -179,7 +239,8 @@ public abstract class DatabaseMySQL {
 
     //<editor-fold defaultstate="collapsed" desc="clear()">
     /**
-     * This operation clears the database (or at least the table that fits the current language).
+     * This operation clears the database (or at least the table that fits the
+     * current language).
      *
      * @param language contains the name of the table that needs to be cleared.
      */
@@ -225,5 +286,4 @@ public abstract class DatabaseMySQL {
     }
     //</editor-fold>
     //</editor-fold>
-
 }

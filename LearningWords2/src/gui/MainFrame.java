@@ -1,6 +1,7 @@
 //<editor-fold defaultstate="collapsed" desc="Jibberish">
 package gui;
 
+import components.TableListener;
 import components.Language;
 import components.enums.TestSpeed;
 import components.enums.TestType;
@@ -24,7 +25,7 @@ public class MainFrame extends javax.swing.JFrame {
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     private Language language;
     private String oldCellValue;
-    private int rowsToBeAdded;
+    private int rowsToBeAdded = 1;
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Constructor">
@@ -33,7 +34,6 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        language = new Language("ChineseCharacter");
         this.setTitle("MP-Learning Words");
         ChangeListener listener = new ChangeListener() {
             @Override
@@ -43,6 +43,8 @@ public class MainFrame extends javax.swing.JFrame {
         };
         jSpinnerRows.addChangeListener(listener);
         jTable.getModel().addTableModelListener(TableListener.getInstance());
+        jMenuFileNewActionPerformed(null);
+        TableListener.setLanguage(language);
     }
     //</editor-fold>
 
@@ -117,6 +119,11 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuFile.setText("File");
 
         jMenuFileNew.setText("New");
+        jMenuFileNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuFileNewActionPerformed(evt);
+            }
+        });
         jMenuFile.add(jMenuFileNew);
 
         jMenuFileOpen.setText("Open");
@@ -250,7 +257,14 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     //</editor-fold>
 
+    //<editor-fold desc="Operations">
+    //<editor-fold defaultstate="collapsed" desc="setLanguage(language)">
+    public void setLanguage(Language language) {
+        this.language = language;
+        updateTable();
+    }
     //</editor-fold>
+
     //<editor-fold defaultstate="collapsed" desc="Menu File Open">
     /**
      * This event is called when the File>Open menu item is called. It loads a
@@ -272,8 +286,8 @@ public class MainFrame extends javax.swing.JFrame {
      * @param evt is the event with which this event is called.
      */
     private void jMenuFileLoadDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileLoadDatabaseActionPerformed
-        DatabaseMySQL.load(language);
-        updateTable();
+        DatabaseSelector databaseSelector = new DatabaseSelector(this, null);
+        databaseSelector.setVisible(true);
     }//GEN-LAST:event_jMenuFileLoadDatabaseActionPerformed
     //</editor-fold>
 
@@ -285,7 +299,8 @@ public class MainFrame extends javax.swing.JFrame {
      * @param evt is the event with which this event is called.
      */
     private void jMenuDatabaseSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDatabaseSaveActionPerformed
-        DatabaseMySQL.save(language);
+        DatabaseSelector databaseSelector = new DatabaseSelector(this, language);
+        databaseSelector.setVisible(true);
     }//GEN-LAST:event_jMenuDatabaseSaveActionPerformed
     //</editor-fold>
 
@@ -378,7 +393,13 @@ public class MainFrame extends javax.swing.JFrame {
             tableModel.addRow(row);
             jTable.setModel(tableModel);
         }
+        TableListener.addRows(rowsToBeAdded);
     }//GEN-LAST:event_jButtonAddRowsActionPerformed
+
+    private void jMenuFileNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileNewActionPerformed
+        language = new Language("new");
+        updateTable();
+    }//GEN-LAST:event_jMenuFileNewActionPerformed
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Static Main">

@@ -1,14 +1,14 @@
 //<editor-fold defaultstate="collapsed" desc="Jibberish">
 package components;
 
-import gui.TableListener;
 import java.util.ArrayList;
 import java.util.List;
 //</editor-fold>
 
 /**
- * In this class you can find all properties and operations for Language. //CHECK
- * 
+ * In this class you can find all properties and operations for Language.
+ * //CHECK
+ *
  * @organization: Moridrin
  * @author J.B.A.J. Berkvens
  * @date 2014/04/12
@@ -16,20 +16,65 @@ import java.util.List;
 public class Language {
 
     //<editor-fold defaultstate="collapsed" desc="Declarations">
-    private final String name;
+    private String name;
     private final List<Translation> translations;
     //</editor-fold>
 
     //<editor-fold desc="Operations">
     //<editor-fold defaultstate="collapsed" desc="Constructor()">
     /**
-     * This is the constructor for Language. The name will be set, as well as the list of translations (currently empty).
+     * This is the constructor for Language. The name will be set, as well as
+     * the list of translations (currently empty).
      *
      * @param language is the name of this language.
      */
     public Language(String language) {
         name = language;
         translations = new ArrayList<>();
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="setName(name)">
+    public void setName(String name) {
+        if (this.name.equals("new") && !name.equals("new")) {
+            this.name = name;
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="change(oldValue, newValue)">
+    public void change(String oldVlaue, String newValue, int row, int column) {
+        if (translations.size() <= row) {
+            switch (column) {
+                case 0:
+                    translations.add(new Translation(newValue, name, name, name));
+                    break;
+                case 1:
+                    translations.add(new Translation(name, newValue, name, name));
+                    break;
+                case 2:
+                    translations.add(new Translation(name, name, newValue, name));
+                    break;
+                case 3:
+                    translations.add(new Translation(name, name, name, newValue));
+                    break;
+            }
+        }
+        Translation translation = translations.get(row);
+        switch (column) {
+            case 0:
+                translation.setMainWord(newValue);
+                break;
+            case 1:
+                translation.setMainHint(newValue);
+                break;
+            case 2:
+                translation.setLanguageWord(newValue);
+                break;
+            case 3:
+                translation.setLanguageHint(newValue);
+                break;
+        }
     }
     //</editor-fold>
 
@@ -62,7 +107,8 @@ public class Language {
 
     //<editor-fold defaultstate="collapsed" desc="getMainWords(word)">
     /**
-     * This operation returns a list of all the main words in the language that are translations for the word given.
+     * This operation returns a list of all the main words in the language that
+     * are translations for the word given.
      *
      * @param word the word that needs to be translated.
      *
@@ -81,8 +127,8 @@ public class Language {
 
     //<editor-fold defaultstate="collapsed" desc="getMainHint(mainWord)">
     /**
-     * This operation returns the hint that goes with the given main word. If the translation gives null as hint this operation
-     * returns a blanc string.
+     * This operation returns the hint that goes with the given main word. If
+     * the translation gives null as hint this operation returns a blanc string.
      *
      * @param mainWord is the word of which the hint is returned.
      *
@@ -118,7 +164,8 @@ public class Language {
 
     //<editor-fold defaultstate="collapsed" desc="getLanguageWords(word)">
     /**
-     * This operation returns a list of language words that are translations of the given main word.
+     * This operation returns a list of language words that are translations of
+     * the given main word.
      *
      * @param word is the given main word.
      *
@@ -167,10 +214,11 @@ public class Language {
 
     //<editor-fold defaultstate="collapsed" desc="addWord(mainWord, languageWord)">
     /**
-     * This operation adds a translation to the word-lists. If the translation already exists, it won't be added.
+     * This operation adds a translation to the word-lists. If the translation
+     * already exists, it won't be added.
      *
-     * @param mainWord     is the word in the Main Language.
-     * @param mainHint     is a hint that explains the Main Word.
+     * @param mainWord is the word in the Main Language.
+     * @param mainHint is a hint that explains the Main Word.
      * @param languageWord is the word in the Foreign Language.
      * @param languageHint is a hint (like Pinyin).
      */
@@ -183,7 +231,8 @@ public class Language {
 
     //<editor-fold defaultstate="collapsed" desc="addWord(translation)">
     /**
-     * This operation adds a translation to the word-lists. If the translation already exists, it won't be added.
+     * This operation adds a translation to the word-lists. If the translation
+     * already exists, it won't be added.
      *
      * @param translation is the Translation to be added to the word-list.
      */
@@ -196,13 +245,16 @@ public class Language {
 
     //<editor-fold defaultstate="collapsed" desc="addWordRange(mainWords, languageWords)">
     /**
-     * This operation adds a range of words to the word-lists. If the translation already exists, it won't be added. Translations
-     * need to have the same index in both lists.
+     * This operation adds a range of words to the word-lists. If the
+     * translation already exists, it won't be added. Translations need to have
+     * the same index in both lists.
      *
-     * @param mainWords     is the list of words in the Main Language List.
-     * @param mainHints     is the list of words to be added to the Main Hint List.
-     * @param languageWords is the list of words to be added to the Foreign Language List.
-     * @param languageHints is the list of words to be added to the Language Hint List.
+     * @param mainWords is the list of words in the Main Language List.
+     * @param mainHints is the list of words to be added to the Main Hint List.
+     * @param languageWords is the list of words to be added to the Foreign
+     * Language List.
+     * @param languageHints is the list of words to be added to the Language
+     * Hint List.
      */
     public void addWordRange(List<String> mainWords, List<String> mainHints, List<String> languageWords, List<String> languageHints) {
         for (int i = 0; i < mainWords.size(); i++) {
@@ -213,8 +265,9 @@ public class Language {
 
     //<editor-fold defaultstate="collapsed" desc="addWordRange(translations)">
     /**
-     * This operation adds a range of words to the word-lists. If the translation already exists, it won't be added. Translations
-     * need to have the same index in both lists.
+     * This operation adds a range of words to the word-lists. If the
+     * translation already exists, it won't be added. Translations need to have
+     * the same index in both lists.
      *
      * @param translations is the list of translations to be added.
      */
