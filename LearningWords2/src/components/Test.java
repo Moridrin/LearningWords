@@ -34,8 +34,8 @@ public class Test {
     //<editor-fold desc="Operations">
     //<editor-fold defaultstate="collapsed" desc="Constructor()">
     /**
-     * This is the main constructor that is called by the singleton (and therefore I can't give it parameters as
-     * Language and TestSpeed).
+     * This is the main constructor that is called by the singleton (and
+     * therefore I can't give it parameters as Language and TestSpeed).
      */
     private Test() {
         this.random = new Random();
@@ -75,7 +75,8 @@ public class Test {
 
     //<editor-fold defaultstate="collapsed" desc="getQuestionLanguage()">
     /**
-     * This operation returns a string of the language in which the question is asked.
+     * This operation returns a string of the language in which the question is
+     * asked.
      *
      * @return the language of the question.
      */
@@ -90,7 +91,8 @@ public class Test {
 
     //<editor-fold defaultstate="collapsed" desc="getAnswerLanguage()">
     /**
-     * This operation returns a string of the language in which the answer is expected.
+     * This operation returns a string of the language in which the answer is
+     * expected.
      *
      * @return the language of the answer.
      */
@@ -105,7 +107,8 @@ public class Test {
 
     //<editor-fold defaultstate="collapsed" desc="getAnswer()">
     /**
-     * This operation returns a string of the answer that should have been given.
+     * This operation returns a string of the answer that should have been
+     * given.
      *
      * @return the correct answer.
      */
@@ -120,8 +123,9 @@ public class Test {
 
     //<editor-fold defaultstate="collapsed" desc="getHint()">
     /**
-     * This operation returns a string of the hint of the current question (a question can have a hint, but is not
-     * necessary). A hint tells something about the question not about the answer.
+     * This operation returns a string of the hint of the current question (a
+     * question can have a hint, but is not necessary). A hint tells something
+     * about the question not about the answer.
      *
      * @return the hint.
      */
@@ -136,7 +140,8 @@ public class Test {
 
     //<editor-fold defaultstate="collapsed" desc="isFinished()">
     /**
-     * This operation returns a boolean which specifies if the test is finished or not.
+     * This operation returns a boolean which specifies if the test is finished
+     * or not.
      *
      * @return if the test is finished.
      */
@@ -153,8 +158,9 @@ public class Test {
     //<editor-fold defaultstate="collapsed" desc="Setters">
     //<editor-fold defaultstate="collapsed" desc="setLanguage(language)">
     /**
-     * This operation sets the language of the Test. Because this is a singleton class, I can't make these variables
-     * final, so these can only be set if the current is null, and the given is not.
+     * This operation sets the language of the Test. Because this is a singleton
+     * class, I can't make these variables final, so these can only be set if
+     * the current is null, and the given is not.
      *
      * @param language is the language that will be tested.
      */
@@ -170,8 +176,9 @@ public class Test {
 
     //<editor-fold defaultstate="collapsed" desc="setLanguageAndSpeed(language)">
     /**
-     * This operation sets the speed of the Test. Because this is a singleton class, I can't make these variables final,
-     * so these can only be set if the current is null, and the given is not.
+     * This operation sets the speed of the Test. Because this is a singleton
+     * class, I can't make these variables final, so these can only be set if
+     * the current is null, and the given is not.
      *
      * @param testSpeed is the speed in which it will be tested.
      */
@@ -186,10 +193,12 @@ public class Test {
 
     //<editor-fold defaultstate="collapsed" desc="setTestSpeed(testSpeed)">
     /**
-     * This operation sets the type of the Test. Because this is a singleton class, I can't make these variables final,
-     * so this can only be set if the current is null, and the given is not.
+     * This operation sets the type of the Test. Because this is a singleton
+     * class, I can't make these variables final, so this can only be set if the
+     * current is null, and the given is not.
      *
-     * @param testType is the type in which it will be tested (foreign language to Main, the other way around or both).
+     * @param testType is the type in which it will be tested (foreign language
+     * to Main, the other way around or both).
      */
     public void setType(TestType testType) {
         if (this.testType == null && testType != null) {
@@ -206,21 +215,26 @@ public class Test {
      * This sets the next question and all the variables that go with it.
      */
     public void nextQuestion() {
-        currentQuestion = toBeAsked.get(random.nextInt(toBeAsked.size()));
-        if (testType == TestType.Both) {
-            mainToLanguage = random.nextBoolean();
-        } else if (testType == TestType.MainToLanguage) {
-            mainToLanguage = true;
-        } else if (testType == TestType.LanguageToMain) {
-            mainToLanguage = false;
+        if (toBeAsked.size() > 0) {
+            currentQuestion = toBeAsked.get(random.nextInt(toBeAsked.size()));
+            if (testType == TestType.Both) {
+                mainToLanguage = random.nextBoolean();
+            } else if (testType == TestType.MainToLanguage) {
+                mainToLanguage = true;
+            } else if (testType == TestType.LanguageToMain) {
+                mainToLanguage = false;
+            }
+        } else {
+            int i = 0;
         }
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="submit(answer)">
     /**
-     * This removes the current question from the to be asked list, or adds it to the to be repeated list depending on
-     * the testSpeed, and if the answer is correct. If this leaves the to be asked list empty it calls the
+     * This removes the current question from the to be asked list, or adds it
+     * to the to be repeated list depending on the testSpeed, and if the answer
+     * is correct. If this leaves the to be asked list empty it calls the
      *
      * @param answer is the answer as given by the user.
      *

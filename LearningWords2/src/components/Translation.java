@@ -56,7 +56,7 @@ public class Translation {
      * @return the main hint.
      */
     public String getMainHint() {
-        if (!mainHint.equals("null")) {
+        if (mainHint != null && !mainHint.equals("null")) {
             return mainHint;
         } else {
             return null;

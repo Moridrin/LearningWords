@@ -1,6 +1,7 @@
 //<editor-fold defaultstate="collapsed" desc="Jibberish">
 package components;
 
+import gui.TableListener;
 import java.util.ArrayList;
 import java.util.List;
 //</editor-fold>

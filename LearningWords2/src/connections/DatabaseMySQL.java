@@ -24,7 +24,7 @@ public abstract class DatabaseMySQL {
     //<editor-fold defaultstate="collapsed" desc="Declarations">
     public static final String MAIN_LANGUAGE = "Dutch";
     private static final String DATABASE_NAME = "MPLearningWords";
-    private static final String URL = "jdbc:mysql://192.168.1.147:3306/" + DATABASE_NAME;
+    private static final String URL = "jdbc:mysql://85.113.237.162:3306/" + DATABASE_NAME + "?characterSetResults=UTF-8&characterEncoding=UTF-8&useUnicode=yes";
     private static final String USER = "MPLearningWords";
     private static final String PASSWORD = "v5qhY4j8vxhQXMuN";
     private static Connection conn;
